@@ -1,0 +1,44 @@
+# Dependencies
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data folders (if large)
+chroma_db/
+Classified/
+data-preparation/
+
+# Notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Testing
+/coverage
+.pytest_cache/
+
+# Build
+/build
+/dist
+*.egg-info/
