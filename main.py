@@ -139,6 +139,7 @@ def normalize_product(row):
         "clean_category": clean_cat,
         "main_category": main_category,
         "ai_summary": data.get("ai_summary", ""),
+        "clean_description": data.get("clean_description", ""),
         "brand": data.get("brand", ""),
         "predicted_occasions": safe_to_list(data.get("predicted_occasions", [])),
         "predicted_gender": safe_to_list(data.get("predicted_gender", [])),
@@ -160,7 +161,7 @@ for col in multivalued_cols:
 
 ALL_PRODUCTS_RAW = df_products.to_dict(orient="records")
 ALL_PRODUCTS = [normalize_product(p) for p in ALL_PRODUCTS_RAW]
-titles = [p["short_title"] for p in ALL_PRODUCTS]
+titles = [p["title"] for p in ALL_PRODUCTS]
 
 
 # --------------------------------------------------
@@ -630,7 +631,7 @@ def rank_products_enhanced(
 
     # Debug: Show top 5 scores
     for i, c in enumerate(candidates[:5]):
-        print(f"   #{i + 1}: {c['product']['short_title'][:40]}... Score: {c['score']:.3f}")
+        print(f"   #{i + 1}: {c['product']['title'][:40]}... Score: {c['score']:.3f}")
         print(f"        Scores: {c['scores']}")
 
     return [c['product'] for c in candidates[:top_k]]
@@ -690,9 +691,9 @@ def generate_recommendation_reason(
     if reasons:
         return " • ".join(reasons[:5])
 
-    ai_summary = product.get('ai_summary', '')
-    if ai_summary and len(ai_summary) > 50:
-        first_sentence = ai_summary.split('.')[0][:100]
+    clean_description = product.get('clean_description', '')
+    if clean_description and len(clean_description) > 50:
+        first_sentence = clean_description.split('.')[0][:100]
         return f"Recommended: {first_sentence}..."
 
     return "Highly rated gift choice"
@@ -1122,7 +1123,7 @@ def recommend_similar(req: SimilarProductsRequest):
 
     # Debug: Show top 3
     for i, rec in enumerate(recommendations[:3]):
-        print(f"   #{i + 1}: {rec['short_title'][:40]}... (score: {rec['similarity_score']:.3f})")
+        print(f"   #{i + 1}: {rec['title'][:40]}... (score: {rec['similarity_score']:.3f})")
 
     print(f"{'=' * 60}\n")
 
@@ -1184,7 +1185,7 @@ def get_similar_to_product(asin: str, top_k: int = 6):
         recommendations.append(product)
 
     return {
-        "source_product": target_product['short_title'],
+        "source_product": target_product['title'],
         "recommendations": recommendations
     }
 
