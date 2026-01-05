@@ -1,6 +1,3 @@
-# GiveAura AI - Premium Gift Recommendation Engine
-# Requirements for Advanced Backend v5.0
-
 # Core Framework
 fastapi==0.115.6
 uvicorn[standard]==0.34.0
@@ -8,7 +5,7 @@ python-multipart==0.0.20
 
 # Data Processing
 pandas==2.2.3
-numpy==2.2.1
+numpy==1.26.4
 
 # AI & Embeddings
 openai==1.59.7
@@ -18,12 +15,12 @@ langchain-chroma==0.1.4
 chromadb==0.5.23
 
 # Search & Ranking
-scikit-learn==1.6.1
+scikit-learn==1.4.2
 rank-bm25==0.2.2
 
 # Environment
 python-dotenv==1.0.1
 
-# Optional but recommended
+# Pydantic
 pydantic==2.10.5
 pydantic-settings==2.7.1
